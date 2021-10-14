@@ -321,7 +321,7 @@ func PrintTable(s []int, rowSize, colSize int, commas bool) {
 //
 // or
 //
-// permCh := day09.NewChan( test.arg )
+// permCh := day09.Permutator( test.arg )
 // for next := range ch {
 //     ...
 // }
@@ -335,20 +335,6 @@ type Permutation struct {
 func New(orig []int) *Permutation {
 	self := Permutation{orig: orig, perm: make([]int, len(orig))}
 	return &self
-}
-
-func Permutator(orig []int) chan []int {
-	perm := New(orig)
-	ch := make(chan []int)
-
-	go func() {
-		defer close(ch)
-		for next := perm.Next(); next != nil; next = perm.Next() {
-			ch <- next
-		}
-	}()
-
-	return ch
 }
 
 func (self *Permutation) nextPerm() {
@@ -373,4 +359,18 @@ func (self *Permutation) Next() []int {
 		result[i], result[i+v] = result[i+v], result[i]
 	}
 	return result
+}
+
+func Permutator(orig []int) chan []int {
+	perm := New(orig)
+	ch := make(chan []int)
+
+	go func() {
+		defer close(ch)
+		for next := perm.Next(); next != nil; next = perm.Next() {
+			ch <- next
+		}
+	}()
+
+	return ch
 }
