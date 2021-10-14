@@ -314,14 +314,14 @@ func PrintTable(s []int, rowSize, colSize int, commas bool) {
 
 // Based on https://stackoverflow.com/a/30230552/14660 by Paul Hankin
 
-// perm := NewPermutation( slice )
+// perm := New( slice )
 // for next := perm.Next(); next != nil; next = perm.Next() {
 //    ...
 // }
 //
 // or
 //
-// permCh := day09.NewPermutationChan( test.arg )
+// permCh := day09.NewChan( test.arg )
 // for next := range ch {
 //     ...
 // }
@@ -332,13 +332,13 @@ type Permutation struct {
 	perm []int
 }
 
-func NewPermutation(orig []int) *Permutation {
+func New(orig []int) *Permutation {
 	self := Permutation{orig: orig, perm: make([]int, len(orig))}
 	return &self
 }
 
-func NewPermutationChan(orig []int) chan []int {
-	perm := NewPermutation(orig)
+func Permutator(orig []int) chan []int {
+	perm := New(orig)
 	ch := make(chan []int)
 
 	go func() {
