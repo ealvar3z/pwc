@@ -326,6 +326,7 @@ func PrintTable(s []int, rowSize, colSize int, commas bool) {
 //     ...
 // }
 
+// Permutation holds the original slice and the resulting slice as fields
 type Permutation struct {
 	orig []int
 	perm []int
